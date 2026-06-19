@@ -1,0 +1,27 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
+const doctorRoutes_1 = __importDefault(require("./routes/doctorRoutes"));
+const doctorDashboardRoutes_1 = __importDefault(require("./routes/doctorDashboardRoutes"));
+const appointmentRoutes_1 = __importDefault(require("./routes/appointmentRoutes"));
+const patientRoutes_1 = __importDefault(require("./routes/patientRoutes"));
+dotenv_1.default.config();
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
+app.use(express_1.default.json({ limit: "50mb" }));
+app.use(express_1.default.urlencoded({ limit: "50mb", extended: true }));
+app.get("/api/health", (_req, res) => res.json({ ok: true, name: "Tepi General Hospital API" }));
+app.use("/api/auth", authRoutes_1.default);
+app.use("/api/admin", adminRoutes_1.default);
+app.use("/api/doctors", doctorRoutes_1.default);
+app.use("/api/doctor-dashboard", doctorDashboardRoutes_1.default);
+app.use("/api/appointments", appointmentRoutes_1.default);
+app.use("/api/patient", patientRoutes_1.default);
+exports.default = app;
