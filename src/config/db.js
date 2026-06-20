@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGODB_URI || process.env.MONGODB_URL;
 if (!MONGO_URI) {
-    throw new Error("MONGO_URI is not defined in environment variables");
+    throw new Error("MongoDB connection string is not defined. Set MONGO_URI, MONGO_URL, MONGODB_URI, or MONGODB_URL in your environment.");
 }
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
