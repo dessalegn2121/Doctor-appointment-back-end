@@ -18,8 +18,10 @@ const app_1 = __importDefault(require("./app"));
 const db_1 = require("./config/db");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const User_1 = require("./models/User");
-// Load env from backend root (.env), regardless of where node is invoked from
-dotenv_1.default.config({ path: path_1.default.resolve(process.cwd(), ".env") });
+// Load local env only outside hosted production environments.
+if (process.env.NODE_ENV !== "production" && !process.env.RENDER) {
+    dotenv_1.default.config({ path: path_1.default.resolve(process.cwd(), ".env") });
+}
 const PORT = process.env.PORT ? Number(process.env.PORT) : 5000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
